@@ -31,7 +31,7 @@ jobs:
           draft: false
           prerelease: false
       - run: sed -i 's/PLUGIN_VERSION/${{ steps.bump_tag.outputs.new_tag }}/' thank-after-post-plugin.php
-      - run: cd ..; zip -r thank-after-post.zip . -i thank-after-post/
+      - run: cd .. &&  ls -l && zip -r thank-after-post.zip . -i thank-after-post/
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
