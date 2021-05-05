@@ -1,0 +1,37 @@
+name: Bump version
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.26.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
+---
+name: Prepare plugin
+on:
+  create:
+    tags:
+      - '*'
+jobs:
+  build_plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - run: sed -i 's/PLUGIN_VERSION/${{ steps.vars.outputs.tag }}/' thank-after-post-plugin.php
+      - run: cd ..; zip thank-after-post-${{ steps.vars.outputs.tag }}.zip thank-after-post/ -r
+      - uses: actions/upload-artifact@v2
+        with:
+          name: thank-after-post-${{ steps.vars.outputs.tag }}.zip
+          path: ./
+
