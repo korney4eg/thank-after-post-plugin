@@ -1,8 +1,8 @@
 name: Upload Release Asset
 
 on:
-  - push
-
+  push:
+    - master
 jobs:
   build:
     name: Upload Release Asset
