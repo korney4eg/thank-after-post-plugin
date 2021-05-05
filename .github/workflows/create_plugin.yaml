@@ -26,11 +26,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.bump_tag.output.new_tag }}
-          release_name: Release ${{ steps.bump_tag.output.new_tag }}
+          tag_name: ${{ steps.bump_tag.outputs.new_tag }}
+          release_name: Release ${{ steps.bump_tag.outputs.new_tag }}
           draft: false
           prerelease: false
-      - run: sed -i 's/PLUGIN_VERSION/${{ steps.bump_tag.output.new_tag }}/' thank-after-post-plugin.php
+      - run: sed -i 's/PLUGIN_VERSION/${{ steps.bump_tag.outputs.new_tag }}/' thank-after-post-plugin.php
       - run: cd ..; zip thank-after-post.zip thank-after-post/ -r
       - name: Upload Release Asset
         id: upload-release-asset 
