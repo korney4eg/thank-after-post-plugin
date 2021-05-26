@@ -9,5 +9,5 @@
 add_action( 'the_content', 'thank_after_post' );
 
 function thank_after_post ( $content ) {
-    return $content .= '<p>Thanks for reading!<br>PLUGIN_VERSION</p>';
+    return $content .= '<p class="thank">Thanks for reading!<br></p><p class="version">PLUGIN_VERSION</p>';
 }
