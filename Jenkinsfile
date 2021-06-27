@@ -43,6 +43,7 @@ pipeline {
               steps{
                sh 'git tag $FINAL_TAG_VERSION'
                echo env.GITHUB_USER
+               echo env.BUILD_URL
                // sh 'git push --atomic https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git master $FINAL_TAG_VERSION'
 
           //     script{
