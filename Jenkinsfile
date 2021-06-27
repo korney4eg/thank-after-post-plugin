@@ -45,8 +45,8 @@ pipeline {
                echo env.GITHUB_USER
                echo env.BUILD_URL
                // echo env.GITHUB_PASS
-               // sh 'git push --atomic https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git master $FINAL_TAG_VERSION'
-               sh 'git remote -v'
+               sh 'git push https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
+               // sh 'git remote -v'
           //     script{
                // env.CURRENT_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
           //     }
