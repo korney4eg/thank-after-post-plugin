@@ -23,7 +23,7 @@ pipeline {
                steps {
 
                     script{
-                    def currentTag = GIT_LATEST_TAG
+                    def currentTag = build.getEnvironment(listener).get('GIT_LATEST_TAG')
                     def tagChunks = currentTag.tokenize(".")
                     def oldMinorVersion = tagChunks[1] as int
                     def newMinowVersion = oldMinorVersion + 1
