@@ -22,21 +22,27 @@ pipeline {
           
           stage('Get New Tag') {
                steps {
-
                     script{
-                    def currentTag = env.GIT_LATEST_TAG
-                    def tagChunks = currentTag.tokenize(".")
-                    def oldMinorVersion = tagChunks[1] as int
-                    def newMinowVersion = oldMinorVersion + 1
+                       def currentTag = env.GIT_LATEST_TAG
+                       def tagChunks = currentTag.tokenize(".")
+                       def oldMinorVersion = tagChunks[1] as int
+                       def newMinowVersion = oldMinorVersion + 1
 
-                    env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
+                       env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
                     }
                     
                     echo env.FINAL_TAG_VERSION
+                    //Using env variables with sh - https://stackoverflow.com/a/48026479/13954598                     
                     sh 'echo $FINAL_TAG_VERSION'
                }
           
               
+          }
+
+          stage('Creating New Tag'){
+              steps{
+               sh 'git tag $FINAL_TAG_VERSION'
+              }    
           }
 
      }
