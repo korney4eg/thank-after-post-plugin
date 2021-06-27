@@ -23,15 +23,16 @@ pipeline {
                steps {
 
                     script{
-                    def currentTag = build.getEnvironment(listener).get('GIT_LATEST_TAG')
-                    def tagChunks = currentTag.tokenize(".")
-                    def oldMinorVersion = tagChunks[1] as int
-                    def newMinowVersion = oldMinorVersion + 1
+                    // def currentTag = build.getEnvironment(listener).get('GIT_LATEST_TAG')
+                    // def tagChunks = currentTag.tokenize(".")
+                    // def oldMinorVersion = tagChunks[1] as int
+                    // def newMinowVersion = oldMinorVersion + 1
 
-                    env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
+                    // env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
+                         println env.GIT_LATEST_TAG
                     }
                     
-                    echo env.FINAL_TAG_VERSION
+                    // echo env.FINAL_TAG_VERSION
                }
 
               
