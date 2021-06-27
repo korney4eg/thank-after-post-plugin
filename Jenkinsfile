@@ -5,8 +5,6 @@ pipeline {
                steps {
                     script{
                          //Getting latest tag on git - https://stackoverflow.com/a/7261049 & https://stackoverflow.com/a/62947582/13954598
-                           //Note that we got the second element because jenkins creates a tag for each job.
-                         // env.GIT_LATEST_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | head -n 2 | sed -n '2 p' ").trim()
                          env.GIT_LATEST_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
                     }
                     
@@ -39,24 +37,11 @@ pipeline {
               
           }
 
-          stage('Creating New Tag'){
+          stage('Creating and Pushing New Tag'){
               steps{
                sh 'git tag $FINAL_TAG_VERSION'
-               echo env.GITHUB_USER
-               echo env.BUILD_URL
-               // echo env.GITHUB_PASS
                sh 'git push https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
-               // sh 'git remote -v'
-          //     script{
-               // env.CURRENT_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
-          //     }
-              // Checking if tag was created
-                //It works :D
-          //     echo env.CURRENT_TAG
-
-              
               }
-
           }
 
      }
