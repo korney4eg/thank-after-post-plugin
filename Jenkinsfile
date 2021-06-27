@@ -33,7 +33,7 @@ pipeline {
                     }
                     
                     echo env.FINAL_TAG_VERSION
-                    echo 'Latest tag "${env.FINAL_TAG_VERSION}"'
+                    sh 'echo $FINAL_TAG_VERSION'
                }
           
               
