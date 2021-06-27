@@ -42,7 +42,8 @@ pipeline {
           stage('Creating New Tag'){
               steps{
                sh 'git tag $FINAL_TAG_VERSION'
-               sh 'git push --atomic https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git master $FINAL_TAG_VERSION'
+               echo env.GITHUB_PASS
+               // sh 'git push --atomic https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git master $FINAL_TAG_VERSION'
 
           //     script{
                // env.CURRENT_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
