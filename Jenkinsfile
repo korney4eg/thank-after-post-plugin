@@ -1,7 +1,7 @@
 pipeline {
      agent any
      stages {
-          stage("Get Tag") {
+          stage("Get Current Tag") {
                steps {
                     script{
                          //Getting latest tag on git - https://stackoverflow.com/a/7261049 & https://stackoverflow.com/a/62947582/13954598
@@ -18,10 +18,17 @@ pipeline {
 
                }
           }
-          stage('get_commit_msg') {
+          stage('Get New Tag') {
                steps {
-                    echo env.GIT_LATEST_TAG
+                    def currentTag = env.GIT_LATEST_TAG as String
+                    def tagChunks = currentTag.tokenize(".")
+                    def oldMinorVersion = tagChunks[1] as int
+                    def newMinowVersion = oldMinorVersion + 1
+
+                    env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
                }
+
+               echo env.FINAL_TAG_VERSION
           }
      }
 }
