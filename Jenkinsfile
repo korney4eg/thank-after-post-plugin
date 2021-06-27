@@ -42,14 +42,18 @@ pipeline {
           stage('Creating New Tag'){
               steps{
                sh 'git tag $FINAL_TAG_VERSION'
-              
+               sh 'git push --atomic https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git master $FINAL_TAG_VERSION'
 
-              script{
-               env.CURRENT_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
-              }
+          //     script{
+               // env.CURRENT_TAG = sh (returnStdout:  true, script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ").trim()
+          //     }
               // Checking if tag was created
-              echo env.CURRENT_TAG
+                //It works :D
+          //     echo env.CURRENT_TAG
+
+              
               }
+
           }
 
      }
