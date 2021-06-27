@@ -20,15 +20,19 @@ pipeline {
           }
           stage('Get New Tag') {
                steps {
+                    script{
                     def currentTag = env.GIT_LATEST_TAG as String
                     def tagChunks = currentTag.tokenize(".")
                     def oldMinorVersion = tagChunks[1] as int
                     def newMinowVersion = oldMinorVersion + 1
 
                     env.FINAL_TAG_VERSION = tagChunks[0] + "." + newMinowVersion + "." + tagChunks[2]
+                    }
+                    
+                    echo env.FINAL_TAG_VERSION
                }
 
-               echo env.FINAL_TAG_VERSION
+              
           }
      }
 }
