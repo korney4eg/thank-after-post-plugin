@@ -1,7 +1,7 @@
 pipeline {
      agent any
      stages {
-          stage("Get Current Tag") {
+          stage("Getting Current Tag") {
                steps {
                     script{
                          //Getting latest tag on git - https://stackoverflow.com/a/7261049 & https://stackoverflow.com/a/62947582/13954598
@@ -18,7 +18,7 @@ pipeline {
                }
           }
           
-          stage('Get New Tag') {
+          stage('Generating New Tag') {
                steps {
                     script{
                        def currentTag = env.GIT_LATEST_TAG
@@ -37,7 +37,7 @@ pipeline {
               
           }
 
-          stage('Creating and Pushing New Tag'){
+          stage('Pushing New Tag'){
               steps{
                sh 'git tag $FINAL_TAG_VERSION'
                sh 'git push https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
