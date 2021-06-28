@@ -43,6 +43,16 @@ pipeline {
                sh 'git push https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
               }
           }
+          
+          //Invoking another PipelineB from PipelineA (current one)
+            //https://bit.ly/3x1z1Zj
+     //      stage ('Invoke PipelineB') {
+     //        steps {
+     //            build job: 'pipelineA', parameters: [
+     //            string(name: 'param1', value: "value1")
+     //            ]
+     //        }
+     //    }
 
      }
 }
