@@ -43,6 +43,14 @@ pipeline {
                sh 'git push https://$GITHUB_USER:$GITHUB_PASS@github.com/danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
               }
           }
+
+          stage("Triggering external repo"){
+               steps{          
+                 dir("Switch to phase02 repo"){
+                    git url: 'https://github.com/danpaldev/phase02_task02.git'
+                 }
+               }
+          }
           
           //Invoking another PipelineB from PipelineA (current one)
             //https://bit.ly/3x1z1Zj
