@@ -54,7 +54,8 @@ pipeline {
                     // Now I have to find HOW TO TRIGGER A JENKINSFILE PIPELINE FROM THIS EXTERNAL REPO
                     // Try this - https://bit.ly/3rOIwsN
 
-                  build job: 'Testing Jenkinsfile'
+               //    build job: 'Testing Jenkinsfile'
+                 sh script: "ls", returnStdout: true
                }
           }
           
