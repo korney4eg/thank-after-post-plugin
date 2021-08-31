@@ -43,7 +43,8 @@ pipeline {
 
           stage('Triggering Deploy Dev Pipeline') {
               steps {
-                   build 'deploy_dev'
+                   build(job: 'deploy_dev',
+                     parameters: [string(name: 'demo', value: 'params work!')])
               }
           }
      }
