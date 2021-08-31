@@ -44,8 +44,7 @@ pipeline {
           stage('Triggering Deploy Dev Pipeline') {
               steps {
                    build(job: 'deploy_dev',
-                     parameters: [string(name: 'demo', value: 'params work!'),
-                                  string(name: 'tag_version', value: "${FINAL_TAG_VERSION}") ])
+                     parameters: [ string(name: 'TAG_VERSION', value: "${FINAL_TAG_VERSION}") ])
               }
           }
      }
