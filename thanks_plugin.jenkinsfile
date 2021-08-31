@@ -34,8 +34,12 @@ pipeline {
 
           stage('Pushing New Tag'){
               steps {
+                sshagent(credentials: ['git-auth']) {
+
                   sh 'git tag $FINAL_TAG_VERSION'
                   sh 'git push git@github.com:danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
+
+                }
               }
           }
      }
