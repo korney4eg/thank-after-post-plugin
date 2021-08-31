@@ -6,13 +6,11 @@ pipeline {
           stage('Getting Current Tag') {
                steps {
                     script {
-                      sshagent(credentials: ['git-auth']) {
                          //Getting latest tag on git -
                          //https://stackoverflow.com/a/7261049 & https://stackoverflow.com/a/62947582/13954598
                          env.GIT_LATEST_TAG = sh (returnStdout:  true,
                            script: "git tag --sort=-creatordate | awk '/^v/' | head -n 1 ")
                            .trim()
-                      }
                     }
                }
           }
@@ -36,10 +34,8 @@ pipeline {
 
           stage('Pushing New Tag'){
               steps {
-                sshagent(credentials: ['git-auth']) {
                   sh 'git tag $FINAL_TAG_VERSION'
                   sh 'git push git@github.com:danpaldev/thank-after-post-plugin.git $FINAL_TAG_VERSION'
-                }
               }
           }
      }
