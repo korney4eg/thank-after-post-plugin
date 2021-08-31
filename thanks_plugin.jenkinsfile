@@ -40,5 +40,11 @@ pipeline {
                 }
               }
           }
+
+          stage('Triggering Deploy Dev Pipeline') {
+              steps {
+                   build 'deploy_dev'
+              }
+          }
      }
 }
