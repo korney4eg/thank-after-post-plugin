@@ -32,7 +32,7 @@ pipeline {
                }
           }
 
-          stage('Pushing New Tag'){
+          stage('Pushing New Tag') {
               steps {
                 sshagent(credentials: ['git-auth']) {
                   sh 'git tag $FINAL_TAG_VERSION'
@@ -44,7 +44,7 @@ pipeline {
           stage('Triggering Deploy Dev Pipeline') {
               steps {
                    build(job: 'deploy_dev',
-                     parameters: [ string(name: 'TAG_VERSION', value: "${FINAL_TAG_VERSION}") ])
+                     parameters: [ string(name: 'PLUGIN_TAG_VERSION', value: "${FINAL_TAG_VERSION}") ])
               }
           }
      }
