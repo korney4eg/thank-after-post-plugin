@@ -41,6 +41,17 @@ pipeline {
               }
           }
 
+          stage("Waiting for tag's release being generated") {
+               steps {
+                 sh '''
+                   until curl -s -I https://github.com/danpaldev/thank-after-post-plugin/releases/download/$FINAL_TAG_VERSION/thank-after-post.zip | head -1 | grep "302"; do
+                    >&2 echo "Artifact not yet uploaded. waiting for it... 😴"
+                    sleep 3
+                   done
+                 '''
+               }
+          }
+
           stage('Triggering Deploy Dev Pipeline') {
               steps {
                    build(job: 'deploy_dev',
