@@ -13,24 +13,25 @@ jobs:
       - name: Check out code into a workflow directory
         uses: actions/checkout@v2
 
-      - name: Getting latest tag on the repo
-        id: latest_tag
-        uses: actions-ecosystem/action-get-latest-tag@v1
-        with:
-          semver_only: true
+      # - name: Getting latest tag on the repo
+      #   id: latest_tag
+      #   uses: actions-ecosystem/action-get-latest-tag@v1
+      #   with:
+      #     semver_only: true
 
       - name: Manually getting latest tag
+        id: mylatest_tag
         run: |
-          echo $(git tag --sort=-creatordate | awk '/^v/' | head -n 1)
+          echo "::set-output name=tag::$(git tag --sort=-creatordate | awk '/^v/' | head -n 1)"
 
       - name: Creating Artifact
         run: |
-          sed -i 's/PLUGIN_VERSION/${{ steps.latest_tag.outputs.tag }}/' thank-after-post-plugin.php
+          sed -i 's/PLUGIN_VERSION/${{ steps.mylatest_tag.outputs.tag }}/' thank-after-post-plugin.php
           zip -r thank-after-post.zip . -x '*.git*'
 
       - name: Creating Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "thank-after-post.zip"
-          name: Release ${{ steps.latest_tag.outputs.tag }}
+          name: Release ${{ steps.mylatest_tag.outputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
