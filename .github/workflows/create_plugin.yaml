@@ -19,6 +19,10 @@ jobs:
         with:
           semver_only: true
 
+      - name: Manually getting latest tag
+        run: |
+          echo $(git tag --sort=-creatordate | awk '/^v/' | head -n 1)
+
       - name: Creating Artifact
         run: |
           sed -i 's/PLUGIN_VERSION/${{ steps.latest_tag.outputs.tag }}/' thank-after-post-plugin.php
